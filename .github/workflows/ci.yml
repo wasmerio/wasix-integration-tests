@@ -33,6 +33,8 @@ jobs:
 
       - name: Download wasix toolchain
         shell: bash
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN  }}"
         run: |
           cargo wasix download-toolchain
 
