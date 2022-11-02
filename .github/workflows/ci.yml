@@ -4,7 +4,7 @@ on:
   pull_request:
   workflow_call:
 jobs:
-  test_simple:
+  snapshots:
     strategy:
       matrix:
         os:
@@ -21,10 +21,24 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
 
-      # - name: OS Setup (Ubuntu)
-      #   run: |
-      #     sudo apt-get update 
-      #     sudo apt-get install -y build-essential curl wget xz-utils git python3
+      - name: Check out
+        uses: actions/checkout@v3
+        with:
+          repository: 'john-sharratt/wasmer'
+          ref: os
+          path: ./build/wasmer
+
+      - name: Check out
+        uses: actions/checkout@v3
+        with:
+          repository: 'wasmerio/pirita-john'
+          path: ./build/pirita
+          ref: deploy
+
+      - name: Install wasmer
+        shell: bash
+        run: |
+          cargo install --path ./build/wasmer --features cranelift,compiler,debug wasmer-cli
 
       - name: Install cargo-wasix
         shell: bash
@@ -38,9 +52,9 @@ jobs:
         run: |
           cargo wasix download-toolchain
 
-      - name: Run tests
+      - name: Run snapshot tests
         shell: bash
         run: |
-          cd simple
+          cd snapshots
           cargo test
 

@@ -1,0 +1,11 @@
+---
+source: src/lib.rs
+expression: snap
+---
+result:
+  Ok: ~
+code: 0
+stdin: echo 2
+stdout: "2\n"
+stderr: "# # \n"
+
