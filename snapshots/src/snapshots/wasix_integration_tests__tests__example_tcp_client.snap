@@ -1,0 +1,11 @@
+---
+source: src/lib.rs
+expression: snap
+---
+result:
+  Ok: ~
+code: 0
+stdin: ""
+stdout: "Successfully connected to server in port 53\nFinished.\n"
+stderr: ""
+

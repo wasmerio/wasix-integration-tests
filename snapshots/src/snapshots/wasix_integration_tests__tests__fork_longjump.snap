@@ -1,0 +1,11 @@
+---
+source: src/lib.rs
+expression: snap
+---
+result:
+  Ok: ~
+code: 0
+stdin: ""
+stdout: "Parent has x = 0\nChild has x = 2\nChild(1) exited with 5\n"
+stderr: ""
+

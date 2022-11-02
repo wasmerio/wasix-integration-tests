@@ -21,19 +21,20 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
 
-      - name: Check out
+      - name: Check out Wasmer
         uses: actions/checkout@v3
         with:
           repository: 'john-sharratt/wasmer'
           ref: os
           path: ./build/wasmer
 
-      - name: Check out
+      - name: Check out webc
         uses: actions/checkout@v3
         with:
           repository: 'wasmerio/pirita-john'
           path: ./build/pirita
           ref: deploy
+          token: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Install wasmer
         shell: bash
