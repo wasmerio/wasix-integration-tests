@@ -38,8 +38,37 @@ fn main() {
         }
     }
 
-    // TODO: read full body.
-
     eprintln!("response retrieved:\n\nheader:\n{header}\n---------");
     eprintln!("partial body:\n{body}\n------");
+
+    // Read until end of stream.
+    loop {
+        let read = match stream.read(&mut buffer) {
+            Ok(r) => r,
+            Err(err) => match err.kind() {
+                std::io::ErrorKind::BrokenPipe => {
+                    break;
+                }
+                _ => {
+                    panic!("could not read from socket: {err}");
+                }
+            },
+        };
+
+        if read == 0 {
+            break;
+        }
+        // eprintln!("read {read} response bytes");
+
+        let part_str = String::from_utf8_lossy(&buffer[0..read]);
+
+        body.push_str(part_str.as_ref());
+        if part_str.ends_with("\r\n\r\n") {
+            break;
+        }
+    }
+
+    eprintln!("full body:\n{body}\n-------");
+
+    eprintln!("DONE");
 }
