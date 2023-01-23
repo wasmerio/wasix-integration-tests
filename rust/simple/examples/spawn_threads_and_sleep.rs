@@ -1,5 +1,4 @@
 /// Spawn a number of threads that sleep for inifinity.
-
 use std::io::BufRead;
 
 fn main() {

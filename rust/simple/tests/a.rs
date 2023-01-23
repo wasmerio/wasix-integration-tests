@@ -1,6 +1,4 @@
-fn main() {
-
-}
+fn main() {}
 
 #[test]
 fn nested_test() {}
